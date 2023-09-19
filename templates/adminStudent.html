@@ -130,11 +130,11 @@
                                     {% for index, student in students %}
                                     <tr>
                                         <td>{{ index + 1}}</td>
-                                        <td>{{ student.Stud_name }}</td>
-                                        <td>{{ student.Stud_ID }}</td>
-                                        <td>{{ student.Programme_of_Study }}</td>
-                                        <td>{{ student.Intern_batch }}</td>
-                                        <td>{{ student.Personal_emailAddress }}</td>
+                                        <td>{{ student[1] }}</td>
+                                        <td>{{ student[0] }}</td>
+                                        <td>{{ student[3] }}</td>
+                                        <td>{{ student[4] }}</td>
+                                        <td>{{ student[5] }}</td>
                                         <td>
                                             <button class="delete-button btn btn-danger"
                                                 onclick="location.href='/adminDeleteStudent/{{ student[0] }}'">Delete</button>
