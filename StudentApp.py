@@ -649,8 +649,6 @@ def admin_delete_student(student_id):
     cursor.close()
     return redirect(url_for("adminStudent"))
 
-
-
 @app.route("/view_student_progress", methods=["GET"])
 def view_student_progress():
     if "lecturer_id" in session and session["role"] == "lecturer":
@@ -758,6 +756,20 @@ def company_database():
                            num_of_approved=num_of_approved,
                            rejected_companies=enumerated_rejected,
                            num_of_rejected=num_of_rejected)
+
+@app.route('/adminDeleteCompany/<string:company_name>', methods=["GET"])
+def admin_delete_company(company_name):
+    # Implement code to delete the student with the given student_id from the database or list
+    # You can use a database ORM or manipulate the list directly
+    cursor = db_conn.cursor()
+
+    # Example using a list:
+    delete_query = "DELETE FROM Company WHERE Comp_name = %s"
+    cursor.execute(delete_query, (company_name,))
+    db_conn.commit()
+
+    cursor.close()
+    return redirect(url_for("company_database"))
 
 
 if __name__ == "__main__":
