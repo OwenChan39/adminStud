@@ -107,15 +107,13 @@
                                 <div class="input-group">
                                     <div class="input-group-append" style="margin-left: 10px;">
                                         <form action="/adminStudent" method="GET">
-                                            <input type="text" class="search-input" name="query"
+                                            <input type="text" class="search-input form-control" name="query"
                                                 placeholder="Enter student name or ID">
                                             <button type="submit" class="btn btn-primary search-button">Search</button>
                                         </form>
-                                        <form action="/adminStudent" method="GET">
-                                            {% if number_of_students == 0 %}
-                                            <button type="submit" class="btn btn-secondary search-button">See All</button>
-                                            {% endif %}
-                                        </form>
+                                        {% if number_of_students == 0 %}
+                                        <button class="btn btn-secondary" onclick="location.href='/adminStudent'">See All</button>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
