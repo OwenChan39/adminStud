@@ -366,37 +366,37 @@
 
                 // Store a reference to the clicked "Approve" button
                 var approveButton = $(this);
+            });
 
-                // Handle confirm action
-                $('#confirmAction').off('click').on('click', function () {
-                    // Disable buttons
-                    approveButton.prop('disabled', true); // Disable "Approve" button
-                    approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
+            // Handle confirm action
+            $('#confirmAction').off('click').on('click', function () {
+                // Disable buttons
+                approveButton.prop('disabled', true); // Disable "Approve" button
+                approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
 
-                    // Handle approval logic here
+                // Handle approval logic here
 
-                    // Display success message
-                    approveButton.closest('tr').find('td:nth-child(7)').html('<span class="text-success">Approved</span>');
+                // Display success message
+                approveButton.closest('tr').find('td:nth-child(7)').html('<span class="text-success">Approved</span>');
 
-                    // Display date/time
-                    var dateTime = new Date().toLocaleString();
-                    approveButton.closest('tr').find('td:nth-child(8)').text(dateTime);
+                // Display date/time
+                var dateTime = new Date().toLocaleString();
+                approveButton.closest('tr').find('td:nth-child(8)').text(dateTime);
 
-                    // Create a finalized button
-                    var finalizedButton = $('<button class="finalized-button btn btn-secondary">Finalized</button>');
-                    finalizedButton.prop('disabled', true); // Disable "Finalized" button
+                // Create a finalized button
+                var finalizedButton = $('<button class="finalized-button btn btn-secondary">Finalized</button>');
+                finalizedButton.prop('disabled', true); // Disable "Finalized" button
 
-                    // Set the width of the finalized button to match the combined width of approve and reject buttons
-                    finalizedButton.width(approveButton.outerWidth() + approveButton.closest('tr').find('.reject-button').outerWidth());
+                // Set the width of the finalized button to match the combined width of approve and reject buttons
+                finalizedButton.width(approveButton.outerWidth() + approveButton.closest('tr').find('.reject-button').outerWidth());
 
-                    // Replace the approve and reject buttons with the finalized button
-                    approveButton.closest('tr').find('td:nth-child(6)').html(finalizedButton);
+                // Replace the approve and reject buttons with the finalized button
+                approveButton.closest('tr').find('td:nth-child(6)').html(finalizedButton);
 
-                    // Close the confirmation modal
-                    $('#confirmationModal').modal('hide');
+                // Close the confirmation modal
+                $('#confirmationModal').modal('hide');
 
-                    $('#approvalForm').submit();
-                });
+                $('#approvalForm').submit();
             });
 
             $('#closeModalButton').on('click', function () {
