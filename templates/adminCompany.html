@@ -43,6 +43,17 @@
         .nav-link {
             color: red;
         }
+
+        .truncate-cell {
+            max-width: 150px;
+            /* Adjust the maximum width to your preference */
+            white-space: nowrap;
+            /* Prevent text from wrapping */
+            overflow: hidden;
+            /* Hide overflow content */
+            text-overflow: ellipsis;
+            /* Show ellipsis (...) for truncated text */
+        }
     </style>
 
 </head>
@@ -149,7 +160,7 @@
                                             <td>{{ company[0] }}</td>
                                             <td>{{ company[1] }}</td>
                                             <td>{{ company[2] }}</td>
-                                            <td class="address-cell">{{ company[3] }}</td>
+                                            <td class="truncate-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                             <td>
                                                 <button class="approve-button btn btn-success">Approve</button>
@@ -189,7 +200,7 @@
                                             <td>{{ company[0] }}</td>
                                             <td>{{ company[1] }}</td>
                                             <td>{{ company[2] }}</td>
-                                            <td class="address-cell">{{ company[3] }}</td>
+                                            <td class="truncate-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                             <td>
                                                 <button class="remove-button btn btn-danger">Remove</button>
@@ -223,7 +234,7 @@
                                             <td>{{ company[0] }}</td>
                                             <td>{{ company[1] }}</td>
                                             <td>{{ company[2] }}</td>
-                                            <td class="address-cell">{{ company[3] }}</td>
+                                            <td class="truncate-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                         </tr>
                                         {% endfor %}
@@ -325,26 +336,6 @@
                 // Add the "active" class to the clicked tab link and tab content
                 $(this).addClass('active');
                 $('#newApplications').addClass('show active');
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Define the maximum character count you want for the address
-                const maxCharCount = 20; // Change this value to your desired limit
-
-                // Select all cells with the "address-cell" class
-                const addressCells = document.querySelectorAll(".address-cell");
-
-                // Loop through each address cell
-                addressCells.forEach(function (cell) {
-                    const addressText = cell.textContent;
-
-                    // Check if the text length exceeds the limit
-                    if (addressText.length > maxCharCount) {
-                        // Truncate the text and add an ellipsis
-                        const truncatedText = addressText.substring(0, maxCharCount) + " ...";
-                        cell.textContent = truncatedText;
-                    }
-                });
             });
         });
     </script>
