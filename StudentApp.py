@@ -634,19 +634,19 @@ def adminStudent():
 
     return render_template("adminStudent.html", students=students)
 
-@app.route('/adminDeleteStudent/<string:student_id>', methods=['GET'])
+@app.route('/adminDeleteStudent/<string:student_id>', methods=["GET"])
 def admin_delete_student(student_id):
     # Implement code to delete the student with the given student_id from the database or list
     # You can use a database ORM or manipulate the list directly
     cursor = db_conn.cursor()
-    
+
     # Example using a list:
     delete_query = "DELETE FROM Student WHERE Stud_ID = %s"
     cursor.execute(delete_query, (student_id,))
     db_conn.commit()
 
     cursor.close()
-    return render_template('adminStudent.html')
+    return redirect(url_for("adminStudent.html"))
 
 
 
