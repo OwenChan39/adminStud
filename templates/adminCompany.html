@@ -282,14 +282,25 @@
     <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
     <script>
         $(document).ready(function () {
-            // Initialize the Bootstrap tab plugin
-            $('#companyListTabs a').click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
+            // // Initialize the Bootstrap tab plugin
+            // $('#companyListTabs a').click(function (e) {
+            //     e.preventDefault();
+            //     $(this).tab('show');
+            // });
 
             // Example of programmatically switching to the 'Approved Companies' tab
             // $('#companyListTabs a[href="#approvedCompanies"]').tab('show');
+            $('#approvedCompaniesTab').on('click', function (e) {
+                e.preventDefault(); // Prevent the default behavior of the link
+
+                // Remove the "active" class from all tab links and tab contents
+                $('.nav-link').removeClass('active');
+                $('.tab-pane').removeClass('active');
+
+                // Add the "active" class to the clicked tab link and tab content
+                $(this).addClass('active');
+                $('#approvedCompanies').addClass('show active');
+            });
         });
     </script>
     <!-- <script>
