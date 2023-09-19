@@ -5,6 +5,7 @@ import boto3
 from botocore.exceptions import NoCredentialsError, ClientError
 from config import *
 from werkzeug.utils import secure_filename
+from jinja2 import TemplateFilter
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = "123456"
@@ -19,6 +20,13 @@ db_conn = connections.Connection(
     host=customhost, port=3306, user=customuser, password=custompass, db=customdb
 )
 
+@TemplateFilter
+def length(sequence):
+  """Returns the length of the sequence."""
+  return len(sequence)
+
+# Register the filter with Jinja2
+app.jinja2_env.filters['length'] = length
 
 @app.route("/")
 def home():
