@@ -206,7 +206,7 @@
                                     </thead>
                                     <tbody>
                                         <!-- Sample row -->
-                                        {% for index, company in companies %}
+                                        {% for index, company in approved_companies %}
                                         <tr>
                                             <td>{{ index + 1 }}</td>
                                             <td>{{ company[0] }}</td>
@@ -231,6 +231,7 @@
                                     <!-- ... (your table header and rows for rejected companies) ... -->
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Company Name</th>
                                             <th>Company Email</th>
                                             <th>Company Contact</th>
@@ -239,14 +240,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Sample row -->
+                                        {% for index, company in rejected_companies %}
                                         <tr>
-                                            <td>Company 1</td>
-                                            <td>company1@example.com</td>
-                                            <td>123-456-7890</td>
-                                            <td>123 Main St</td>
-                                            <td>John Doe</td>
+                                            <td>{{ index + 1 }}</td>
+                                            <td>{{ company[0] }}</td>
+                                            <td>{{ company[1] }}</td>
+                                            <td>{{ company[2] }}</td>
+                                            <td>{{ company[3] }}</td>
+                                            <td>{{ company[4] }}</td>
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
