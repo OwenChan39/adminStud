@@ -721,21 +721,43 @@ def view_student_progress():
 
     return redirect(url_for("login"))
 
-@app.route('/approvedCompanies', methods=["GET"])
-def approved_companies():
+@app.route('/company_database', methods=["GET"])
+def company_database():
     cursor = db_conn.cursor()
 
-    # If no query provided, retrieve all students
+    # Retrieve data for new applications
     cursor.execute(
-        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge FROM Company WHERE Status = 'Approved'"
+        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Pending'"
     )
+    new_applications = cursor.fetchall()
+    num_of_new = len(new_applications)
+    enumerated_new = enumerate(new_applications)
 
-    companies = cursor.fetchall()
-    number_of_companies = len(companies)
-    enumerated_companies = enumerate(companies)
+    # Retrieve data for approved companies
+    cursor.execute(
+        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Approved'"
+    )
+    approved_companies = cursor.fetchall()
+    num_of_approved = len(approved_companies)
+    enumerated_approved = enumerate(approved_companies)
+
+    # Retrieve data for rejected companies
+    cursor.execute(
+        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Rejected'"
+    )
+    rejected_companies = cursor.fetchall()
+    num_of_rejected = len(rejected_companies)
+    enumerated_rejected = enumerate(rejected_companies)
+
     cursor.close()
 
-    return render_template("adminCompany.html", companies=enumerated_companies, number_of_companies=number_of_companies)
+    return render_template("adminCompany.html",
+                           new_applications=enumerated_new,
+                           num_of_new=num_of_new,
+                           approved_companies=enumerated_approved,
+                           num_of_approved=num_of_approved,
+                           rejected_companies=enumerated_rejected,
+                           num_of_rejected=num_of_rejected)
 
 
 if __name__ == "__main__":
