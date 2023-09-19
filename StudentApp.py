@@ -771,6 +771,17 @@ def admin_delete_company(company_name):
     cursor.close()
     return redirect(url_for("company_database"))
 
+@app.route('/update_company_status', methods=['POST'])
+def update_company_status():
+    cursor = db_conn.cursor()
+    # Get the company ID from the submitted form
+    company_name = str(request.form.get('comp_name'))
+
+    cursor.execute("UPDATE Company SET Status = 'Approved' WHERE Comp_name = %s", (company_name,))
+    db_conn.commit()
+
+    cursor.close()
+    return redirect(url_for("company_database"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=True)
