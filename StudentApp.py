@@ -721,6 +721,33 @@ def view_student_progress():
 
     return redirect(url_for("login"))
 
+@app.route('/approvedCompanies', methods=["GET"])
+def approved_companies():
+    cursor = db_conn.cursor()
+
+    # Get the search query from the URL parameter
+    query = request.args.get("query", "")
+
+    # Use the search query to filter the student data
+    if query:
+        # Execute a SQL query to retrieve matching students
+        cursor.execute(
+            "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge FROM Company WHERE Comp_name LIKE %s",
+            ("%" + query + "%"),
+        )
+    else:
+        # If no query provided, retrieve all students
+        cursor.execute(
+            "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge FROM Company"
+        )
+
+    companies = cursor.fetchall()
+    number_of_companies = len(companies)
+    enumerated_companies = enumerate(companies)
+    cursor.close()
+
+    return render_template("adminCompany.html", companies=enumerated_companies, number_of_companies=number_of_companies)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=True)
