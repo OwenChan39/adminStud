@@ -130,8 +130,7 @@
                                 <tbody>
                                     {% for student in students %}
                                     <tr>
-                                        {% set index = index + 1 %}
-                                        <td>{{ index }}</td>
+                                        <td>{{ ++index }}</td>
                                         <td>{{ student[1] }}</td>
                                         <td>{{ student[0] }}</td>
                                         <td>{{ student[3] }}</td>
