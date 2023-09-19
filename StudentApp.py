@@ -647,7 +647,7 @@ def admin_delete_student(student_id):
     db_conn.commit()
 
     cursor.close()
-    return redirect(url_for("adminStudent.html"))
+    return redirect(url_for("adminStudent"))
 
 
 
