@@ -630,9 +630,10 @@ def adminStudent():
         )
 
     students = cursor.fetchall()
+    enumerated_students = enumerate(students)
     cursor.close()
 
-    return render_template("adminStudent.html", students=students)
+    return render_template("adminStudent.html", students=enumerated_students)
 
 @app.route('/adminDeleteStudent/<string:student_id>', methods=["GET"])
 def admin_delete_student(student_id):
