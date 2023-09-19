@@ -108,7 +108,7 @@
                         <ul class="nav nav-tabs" id="companyListTabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="newApplicationsTab" data-toggle="tab"
-                                    href="#newApplications" role="tab" aria-controls="newApplications"
+                                    href="/newApplications" role="tab" aria-controls="newApplications"
                                     aria-selected="true">New Applications</a>
                             </li>
                             <li class="nav-item">
@@ -118,7 +118,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="rejectedCompaniesTab" data-toggle="tab"
-                                    href="#rejectedCompanies" role="tab" aria-controls="rejectedCompanies"
+                                    href="/rejectedCompanies" role="tab" aria-controls="rejectedCompanies"
                                     aria-selected="false">Rejected Companies</a>
                             </li>
                         </ul>
@@ -191,6 +191,23 @@
                             <div class="tab-pane fade show active" id="approvedCompanies" role="tabpanel"
                                 aria-labelledby="approvedCompaniesTab">
                                 <!-- Table for approved companies -->
+                                <div class="col-lg-4"> <!-- Adjust the column size as needed -->
+                                    <div class="input-group">
+                                        <div class="input-group-append" style="margin-left: 10px;">
+                                            <form action="/adminCompany" method="GET">
+                                                <input type="text" class="search-input" name="query"
+                                                    placeholder="Enter company name">
+                                                <button type="submit" class="btn btn-primary search-button">Search</button>
+                                            </form>
+                                        </div>
+                                        <div class="input-group-append" style="margin-left: 10px;">
+                                            {% if number_of_companies == 0 %}
+                                            <button class="btn btn-secondary see-all-button"
+                                                onclick="location.href='/adminCompany'">See All</button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="table">
                                     <!-- ... (your table header and rows for approved companies) ... -->
                                     <thead>
