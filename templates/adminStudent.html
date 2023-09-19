@@ -126,11 +126,10 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                {% set index = 0 %}
                                 <tbody>
                                     {% for student in students %}
                                     <tr>
-                                        <td>{{ ++index }}</td>
+                                        <td>{{ forloop.counter }}</td>
                                         <td>{{ student[1] }}</td>
                                         <td>{{ student[0] }}</td>
                                         <td>{{ student[3] }}</td>
