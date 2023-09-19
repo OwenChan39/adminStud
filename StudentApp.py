@@ -5,7 +5,6 @@ import boto3
 from botocore.exceptions import NoCredentialsError, ClientError
 from config import *
 from werkzeug.utils import secure_filename
-from jinja2 import TemplateFilter
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = "123456"
@@ -19,14 +18,6 @@ s3 = boto3.resource("s3")
 db_conn = connections.Connection(
     host=customhost, port=3306, user=customuser, password=custompass, db=customdb
 )
-
-@TemplateFilter
-def length(sequence):
-  """Returns the length of the sequence."""
-  return len(sequence)
-
-# Register the filter with Jinja2
-app.jinja2_env.filters['length'] = length
 
 @app.route("/")
 def home():
@@ -638,10 +629,11 @@ def adminStudent():
         )
 
     students = cursor.fetchall()
+    number_of_students = len(students)
     enumerated_students = enumerate(students)
     cursor.close()
 
-    return render_template("adminStudent.html", students=enumerated_students)
+    return render_template("adminStudent.html", students=enumerated_students, number_of_students=number_of_students)
 
 @app.route('/adminDeleteStudent/<string:student_id>', methods=["GET"])
 def admin_delete_student(student_id):
