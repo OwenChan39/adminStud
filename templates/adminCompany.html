@@ -301,6 +301,30 @@
                 $(this).addClass('active');
                 $('#approvedCompanies').addClass('show active');
             });
+
+            $('#rejectedCompaniesTab').on('click', function (e) {
+                e.preventDefault(); // Prevent the default behavior of the link
+
+                // Remove the "active" class from all tab links and tab contents
+                $('.nav-link').removeClass('active');
+                $('.tab-pane').removeClass('active');
+
+                // Add the "active" class to the clicked tab link and tab content
+                $(this).addClass('active');
+                $('#rejectedCompanies').addClass('show active');
+            });
+
+            $('#newApplicationsTab').on('click', function (e) {
+                e.preventDefault(); // Prevent the default behavior of the link
+
+                // Remove the "active" class from all tab links and tab contents
+                $('.nav-link').removeClass('active');
+                $('.tab-pane').removeClass('active');
+
+                // Add the "active" class to the clicked tab link and tab content
+                $(this).addClass('active');
+                $('#newApplications').addClass('show active');
+            });
         });
     </script>
     <!-- <script>
