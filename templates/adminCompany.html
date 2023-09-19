@@ -203,7 +203,8 @@
                                             <td class="truncate-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                             <td>
-                                                <button class="remove-button btn btn-danger">Remove</button>
+                                                <button class="remove-button btn btn-danger" 
+                                                onclick="location.href='/adminDeleteCompany/{{ company[0] }}'">Remove</button>
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -337,47 +338,60 @@
                 $(this).addClass('active');
                 $('#newApplications').addClass('show active');
             });
+
+            $('.approve-button').on('click', function () {
+                // Set the confirmation message
+                var confirmationMessage = "Are you sure you want to approve this company?";
+                $('#confirmationMessage').text(confirmationMessage);
+
+                // Show the confirmation modal
+                $('#confirmationModal').modal('show');
+
+                // Change the modal header color to red
+                $('#confirmationModal .modal-header').css('background-color', '#10a13e');
+                $('#confirmationModal .modal-header').css('color', '#fff');
+
+                // Change the modal header color to red
+                $('#confirmationModal #confirmAction').css('background-color', '#10a13e');
+
+                // Store a reference to the clicked "Approve" button
+                var approveButton = $(this);
+
+                // Handle confirm action
+                $('#confirmAction').off('click').on('click', function () {
+                    // Disable buttons
+                    approveButton.prop('disabled', true); // Disable "Approve" button
+                    approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
+
+                    // Handle approval logic here
+
+                    // Display success message
+                    approveButton.closest('tr').find('td:nth-child(7)').html('<span class="text-success">Approved</span>');
+
+                    // Display date/time
+                    var dateTime = new Date().toLocaleString();
+                    approveButton.closest('tr').find('td:nth-child(8)').text(dateTime);
+
+                    // Create a finalized button
+                    var finalizedButton = $('<button class="finalized-button btn btn-secondary">Finalized</button>');
+                    finalizedButton.prop('disabled', true); // Disable "Finalized" button
+
+                    // Set the width of the finalized button to match the combined width of approve and reject buttons
+                    finalizedButton.width(approveButton.outerWidth() + approveButton.closest('tr').find('.reject-button').outerWidth());
+
+                    // Replace the approve and reject buttons with the finalized button
+                    approveButton.closest('tr').find('td:nth-child(6)').html(finalizedButton);
+
+                    // Close the confirmation modal
+                    $('#confirmationModal').modal('hide');
+                });
+            });
         });
     </script>
     <!-- <script>
 
         // JavaScript code to handle approve and reject actions
         $(document).ready(function () {
-            $('#approvedCompaniesTab').on('click', function (e) {
-                e.preventDefault(); // Prevent the default behavior of the link
-
-                // Remove the "active" class from all tab links and tab contents
-                $('.nav-link').removeClass('active');
-                $('.tab-pane').removeClass('active');
-
-                // Add the "active" class to the clicked tab link and tab content
-                $(this).addClass('active');
-                $('#approvedCompanies').addClass('show active');
-            });
-
-            $('#rejectedCompaniesTab').on('click', function (e) {
-                e.preventDefault(); // Prevent the default behavior of the link
-
-                // Remove the "active" class from all tab links and tab contents
-                $('.nav-link').removeClass('active');
-                $('.tab-pane').removeClass('active');
-
-                // Add the "active" class to the clicked tab link and tab content
-                $(this).addClass('active');
-                $('#rejectedCompanies').addClass('show active');
-            });
-
-            $('#newApplicationsTab').on('click', function (e) {
-                e.preventDefault(); // Prevent the default behavior of the link
-
-                // Remove the "active" class from all tab links and tab contents
-                $('.nav-link').removeClass('active');
-                $('.tab-pane').removeClass('active');
-
-                // Add the "active" class to the clicked tab link and tab content
-                $(this).addClass('active');
-                $('#newApplications').addClass('show active');
-            });
 
             // Handle "Approve" button click
             $('.approve-button').on('click', function () {
