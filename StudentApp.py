@@ -725,21 +725,10 @@ def view_student_progress():
 def approved_companies():
     cursor = db_conn.cursor()
 
-    # Get the search query from the URL parameter
-    query = request.args.get("query", "")
-
-    # Use the search query to filter the student data
-    if query:
-        # Execute a SQL query to retrieve matching students
-        cursor.execute(
-            "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge FROM Company WHERE Comp_name LIKE %s",
-            ("%" + query + "%"),
-        )
-    else:
-        # If no query provided, retrieve all students
-        cursor.execute(
-            "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge FROM Company"
-        )
+    # If no query provided, retrieve all students
+    cursor.execute(
+        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge FROM Company WHERE Status = 'Approved'"
+    )
 
     companies = cursor.fetchall()
     number_of_companies = len(companies)
