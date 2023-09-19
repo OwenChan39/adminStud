@@ -113,7 +113,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="approvedCompaniesTab" data-toggle="tab"
-                                    href="#approvedCompanies" role="tab" aria-controls="approvedCompanies"
+                                    href="/approvedCompanies" role="tab" aria-controls="approvedCompanies"
                                     aria-selected="false">Approved Companies</a>
                             </li>
                             <li class="nav-item">
@@ -124,7 +124,7 @@
                         </ul>
                         <div class="tab-content" id="companyListTabsContent">
                             <!-- Tab: New Applications -->
-                            <div class="tab-pane fade show active" id="newApplications" role="tabpanel"
+                            <div class="tab-pane fade" id="newApplications" role="tabpanel"
                                 aria-labelledby="newApplicationsTab">
                                 <!-- Table for new applications -->
                                 <table class="table">
@@ -188,13 +188,14 @@
                             </div>
 
                             <!-- Tab: Approved Companies -->
-                            <div class="tab-pane fade" id="approvedCompanies" role="tabpanel"
+                            <div class="tab-pane fade show active" id="approvedCompanies" role="tabpanel"
                                 aria-labelledby="approvedCompaniesTab">
                                 <!-- Table for approved companies -->
                                 <table class="table">
                                     <!-- ... (your table header and rows for approved companies) ... -->
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Company Name</th>
                                             <th>Company Email</th>
                                             <th>Company Contact</th>
@@ -205,16 +206,19 @@
                                     </thead>
                                     <tbody>
                                         <!-- Sample row -->
+                                        {% for index, company in companies %}
                                         <tr>
-                                            <td>Company 1</td>
-                                            <td>company1@example.com</td>
-                                            <td>123-456-7890</td>
-                                            <td>123 Main St</td>
-                                            <td>John Doe</td>
+                                            <td>{{ index + 1 }}</td>
+                                            <td>{{ company[0] }}</td>
+                                            <td>{{ company[1] }}</td>
+                                            <td>{{ company[2] }}</td>
+                                            <td>{{ company[3] }}</td>
+                                            <td>{{ company[4] }}</td>
                                             <td>
                                                 <button class="remove-button btn btn-danger">Remove</button>
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
