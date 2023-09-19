@@ -70,7 +70,8 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="adminLanding.html" class="logo">
-                            <h4>SEO Dream <img src="{{ url_for('static', filename='assets/images/logo-icon.png') }}" alt=""></h4>
+                            <h4>SEO Dream <img src="{{ url_for('static', filename='assets/images/logo-icon.png') }}"
+                                    alt=""></h4>
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -112,14 +113,14 @@
                                     aria-selected="false">New Applications</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="approvedCompaniesTab" data-toggle="tab"
-                                    href="/company_database" role="tab" aria-controls="approvedCompanies"
-                                    aria-selected="true">Approved Companies</a>
+                                <a class="nav-link" id="approvedCompaniesTab" data-toggle="tab" href="/company_database"
+                                    role="tab" aria-controls="approvedCompanies" aria-selected="true">Approved
+                                    Companies</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="rejectedCompaniesTab" data-toggle="tab"
-                                    href="/company_database" role="tab" aria-controls="rejectedCompanies"
-                                    aria-selected="false">Rejected Companies</a>
+                                <a class="nav-link" id="rejectedCompaniesTab" data-toggle="tab" href="/company_database"
+                                    role="tab" aria-controls="rejectedCompanies" aria-selected="false">Rejected
+                                    Companies</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="companyListTabsContent">
@@ -148,7 +149,7 @@
                                             <td>{{ company[0] }}</td>
                                             <td>{{ company[1] }}</td>
                                             <td>{{ company[2] }}</td>
-                                            <td>{{ company[3] }}</td>
+                                            <td class="address-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                             <td>
                                                 <button class="approve-button btn btn-success">Approve</button>
@@ -188,7 +189,7 @@
                                             <td>{{ company[0] }}</td>
                                             <td>{{ company[1] }}</td>
                                             <td>{{ company[2] }}</td>
-                                            <td>{{ company[3] }}</td>
+                                            <td class="address-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                             <td>
                                                 <button class="remove-button btn btn-danger">Remove</button>
@@ -222,7 +223,7 @@
                                             <td>{{ company[0] }}</td>
                                             <td>{{ company[1] }}</td>
                                             <td>{{ company[2] }}</td>
-                                            <td>{{ company[3] }}</td>
+                                            <td class="address-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                         </tr>
                                         {% endfor %}
@@ -324,6 +325,26 @@
                 // Add the "active" class to the clicked tab link and tab content
                 $(this).addClass('active');
                 $('#newApplications').addClass('show active');
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Define the maximum character count you want for the address
+                const maxCharCount = 20; // Change this value to your desired limit
+
+                // Select all cells with the "address-cell" class
+                const addressCells = document.querySelectorAll(".address-cell");
+
+                // Loop through each address cell
+                addressCells.forEach(function (cell) {
+                    const addressText = cell.textContent;
+
+                    // Check if the text length exceeds the limit
+                    if (addressText.length > maxCharCount) {
+                        // Truncate the text and add an ellipsis
+                        const truncatedText = addressText.substring(0, maxCharCount) + " ...";
+                        cell.textContent = truncatedText;
+                    }
+                });
             });
         });
     </script>
