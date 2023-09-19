@@ -139,40 +139,45 @@
                             <div class="tab-pane fade show active" id="newApplications" role="tabpanel"
                                 aria-labelledby="newApplicationsTab">
                                 <!-- Table for new applications -->
-                                <table class="table">
-                                    <!-- ... (your table header and rows for new applications) ... -->
-                                    <thead>
-                                        <tr>
-                                            <th>Company Name</th>
-                                            <th>Company Email</th>
-                                            <th>Company Contact</th>
-                                            <th>Company Address</th>
-                                            <th>Person in Charge</th>
-                                            <th>Action</th>
-                                            <th>Status</th>
-                                            <th>Date/Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Sample row -->
-                                        {% for index, company in new_applications %}
-                                        <tr>
-                                            <td>{{ company[0] }}</td>
-                                            <td>{{ company[1] }}</td>
-                                            <td>{{ company[2] }}</td>
-                                            <td class="truncate-cell">{{ company[3] }}</td>
-                                            <td>{{ company[4] }}</td>
-                                            <td>
-                                                <button class="approve-button btn btn-success">Approve</button>
-                                                <button class="reject-button btn btn-danger">Reject</button>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        {% endfor %}
-                                        <!-- Add more rows for additional companies -->
-                                    </tbody>
-                                </table>
+                                <form id="approvalForm" action="/update_company_status" method="POST">
+                                    <!-- Replace with backend route -->
+                                    <table class="table">
+                                        <!-- ... (your table header and rows for new applications) ... -->
+                                        <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Company Email</th>
+                                                <th>Company Contact</th>
+                                                <th>Company Address</th>
+                                                <th>Person in Charge</th>
+                                                <th>Action</th>
+                                                <th>Status</th>
+                                                <th>Date/Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Sample row -->
+                                            {% for index, company in new_applications %}
+                                            <tr>
+                                                <td>{{ company[0] }}</td>
+                                                <td>{{ company[1] }}</td>
+                                                <td>{{ company[2] }}</td>
+                                                <td class="truncate-cell">{{ company[3] }}</td>
+                                                <td>{{ company[4] }}</td>
+                                                <td>
+                                                    <button class="approve-button btn btn-success" data-toggle="modal"
+                                                        data-target="#confirmationModal"
+                                                        data-company-name="{{ company[0] }}">Approve</button>
+                                                    <button class="reject-button btn btn-danger">Reject</button>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            {% endfor %}
+                                            <!-- Add more rows for additional companies -->
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
 
                             <!-- Tab: Approved Companies -->
@@ -203,8 +208,8 @@
                                             <td class="truncate-cell">{{ company[3] }}</td>
                                             <td>{{ company[4] }}</td>
                                             <td>
-                                                <button class="remove-button btn btn-danger" 
-                                                onclick="location.href='/adminDeleteCompany/{{ company[0] }}'">Remove</button>
+                                                <button class="remove-button btn btn-danger"
+                                                    onclick="location.href='/adminDeleteCompany/{{ company[0] }}'">Remove</button>
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -354,6 +359,11 @@
                 // Change the modal header color to red
                 $('#confirmationModal #confirmAction').css('background-color', '#10a13e');
 
+                var companyName = $(this).data('company-name');
+
+                // Store the company ID in a hidden input field within the form
+                $('#approvalForm input[name="comp_name"]').val(companyName);
+
                 // Store a reference to the clicked "Approve" button
                 var approveButton = $(this);
 
@@ -384,8 +394,19 @@
 
                     // Close the confirmation modal
                     $('#confirmationModal').modal('hide');
+
+                    $('#approvalForm').submit();
                 });
             });
+
+            $('#closeModalButton').on('click', function () {
+                $('#confirmationModal').modal('hide');
+            });
+
+            $('#cancelButton').on('click', function () {
+                $('#confirmationModal').modal('hide');
+            });
+
         });
     </script>
     <!-- <script>
