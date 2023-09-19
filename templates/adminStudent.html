@@ -127,7 +127,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if students is not empty %}
+                                    {% if len(students) == 0 %}
+                                    <tr>
+                                        <p>No Student Record Found</p>
+                                    </tr>
+                                    {% else %}
                                     {% for index, student in students %}
                                     <tr>
                                         <td>{{ index + 1}}</td>
@@ -142,10 +146,6 @@
                                         </td>
                                     </tr>
                                     {% endfor %}
-                                    {% else %}
-                                    <tr>
-                                        <p>No Student Record Found</p>
-                                    </tr>
                                     {% endif %}
                                 </tbody>
                             </table>
