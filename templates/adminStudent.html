@@ -109,7 +109,12 @@
                                         <form action="/adminStudent" method="GET">
                                             <input type="text" class="search-input" name="query"
                                                 placeholder="Enter student name or ID">
-                                            <button type="submit" class="search-button">Search</button>
+                                            <button type="submit" class="btn btn-primary search-button">Search</button>
+                                        </form>
+                                        <form action="/adminStudent" method="GET">
+                                            {% if number_of_students == 0 %}
+                                            <button type="submit" class="btn btn-secondary search-button">See All</button>
+                                            {% endif %}
                                         </form>
                                     </div>
                                 </div>
