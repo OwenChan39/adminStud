@@ -166,7 +166,7 @@
                                             <td>
                                                 <button class="approve-button btn btn-success" data-toggle="modal"
                                                     data-target="#confirmationModal" data-action="approve"
-                                                    data-company-name="{{ company[0] }}">Approve</button>
+                                                    data-company-name="Vitrox Sdn. Bhd.">Approve</button>
                                                 <button class="reject-button btn btn-danger">Reject</button>
                                             </td>
                                             <td></td>
@@ -371,7 +371,7 @@
                     // Store the company name and action in hidden input fields within the form
                     $('#company_name').val(companyName);
                     $('#action').val(action);
-                    
+
                     // Disable buttons
                     approveButton.prop('disabled', true); // Disable "Approve" button
                     approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
