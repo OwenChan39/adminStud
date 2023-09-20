@@ -364,14 +364,14 @@
                 var companyName = $(this).data('company-name');
                 var action = $(this).data('action');
 
-                // Store the company name and action in hidden input fields within the form
-                $('#company_name').val(companyName);
-                $('#action').val(action);
-
                 // Store a reference to the clicked "Approve" button
                 var approveButton = $(this);
                 // Handle confirm action
                 $('#confirmAction').off('click').on('click', function () {
+                    // Store the company name and action in hidden input fields within the form
+                    $('#company_name').val(companyName);
+                    $('#action').val(action);
+                    
                     // Disable buttons
                     approveButton.prop('disabled', true); // Disable "Approve" button
                     approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
