@@ -167,8 +167,8 @@
                                                     data-target="#confirmationModal" data-action="approve"
                                                     data-company-name="{{ company[0] }}">Approve</button>
                                                 <button class="reject-button btn btn-danger" data-toggle="modal"
-                                                data-target="#confirmationModal" data-action="reject"
-                                                data-company-name="{{ company[0] }}">Reject</button>
+                                                    data-target="#confirmationModal" data-action="reject"
+                                                    data-company-name="{{ company[0] }}">Reject</button>
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -340,14 +340,66 @@
                 $('#newApplications').addClass('show active');
             });
 
-            $('.approve-button .reject-button').on('click', function () {
+            $('.approve-button').on('click', function () {
                 // Set the confirmation message
+                var confirmationMessage = "Are you sure you want to approve this company?";
+
+                $('#confirmationMessage').text(confirmationMessage);
+
+                // Show the confirmation modal
+                $('#confirmationModal').modal('show');
+
+                // // Change the modal header color to red
+                // $('#confirmationModal .modal-header').css('background-color', '#10a13e');
+                // $('#confirmationModal .modal-header').css('color', '#fff');
+
+                // // Change the modal header color to red
+                // $('#confirmationModal #confirmAction').css('background-color', '#10a13e');
+
+                var companyName = $(this).data('company-name');
                 var action = $(this).data('action');
-                if (action == 'approve') {
-                    var confirmationMessage = "Are you sure you want to approve this company?";
-                } else {
-                    var confirmationMessage = "Are you sure you want to reject this company?";
-                }
+
+                // Store a reference to the clicked "Approve" button
+                var approveButton = $(this);
+                // Handle confirm action
+                $('#confirmAction').off('click').on('click', function () {
+                    // Store the company name and action in hidden input fields within the form
+                    $('#company_name').val(companyName);
+                    $('#action').val(action);
+
+                    // Disable buttons
+                    approveButton.prop('disabled', true); // Disable "Approve" button
+                    approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
+
+                    // Handle approval logic here
+
+                    // Display success message
+                    approveButton.closest('tr').find('td:nth-child(7)').html('<span class="text-success">Approved</span>');
+
+                    // Display date/time
+                    var dateTime = new Date().toLocaleString();
+                    approveButton.closest('tr').find('td:nth-child(8)').text(dateTime);
+
+                    // Create a finalized button
+                    var finalizedButton = $('<button class="finalized-button btn btn-secondary">Finalized</button>');
+                    finalizedButton.prop('disabled', true); // Disable "Finalized" button
+
+                    // Set the width of the finalized button to match the combined width of approve and reject buttons
+                    finalizedButton.width(approveButton.outerWidth() + approveButton.closest('tr').find('.reject-button').outerWidth());
+
+                    // Replace the approve and reject buttons with the finalized button
+                    approveButton.closest('tr').find('td:nth-child(6)').html(finalizedButton);
+
+                    // Close the confirmation modal
+                    $('#confirmationModal').modal('hide');
+
+                    $('#confirmForm').submit();
+                });
+            });
+
+            $('.reject-button').on('click', function () {
+                // Set the confirmation message
+                var confirmationMessage = "Are you sure you want to reject this company?";
 
                 $('#confirmationMessage').text(confirmationMessage);
 
