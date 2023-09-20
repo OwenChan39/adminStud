@@ -154,7 +154,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Sample row -->
+                                        {% if num_of_new == 0 %}
+                                        <tr>
+                                            <td colspan="7">No New Application Found</td>
+                                        </tr>
+                                        {% else %}
                                         {% for index, company in new_applications %}
                                         <tr>
                                             <td>{{ company[0] }}</td>
@@ -174,7 +178,7 @@
                                             <td></td>
                                         </tr>
                                         {% endfor %}
-                                        <!-- Add more rows for additional companies -->
+                                        {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -197,7 +201,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Sample row -->
+                                        {% if num_of_approved == 0 %}
+                                        <tr>
+                                            <td colspan="7">No Company Found</td>
+                                        </tr>
+                                        {% else %}
                                         {% for index, company in approved_companies %}
                                         <tr>
                                             <td>{{ index + 1 }}</td>
@@ -212,6 +220,7 @@
                                             </td>
                                         </tr>
                                         {% endfor %}
+                                        {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -233,6 +242,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% if num_of_rejected == 0 %}
+                                        <tr>
+                                            <td colspan="7">No Company Found</td>
+                                        </tr>
+                                        {% else %}
                                         {% for index, company in rejected_companies %}
                                         <tr>
                                             <td>{{ index + 1 }}</td>
@@ -243,6 +257,7 @@
                                             <td>{{ company[4] }}</td>
                                         </tr>
                                         {% endfor %}
+                                        {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -419,27 +434,31 @@
                     $('#action').val(action);
 
                     // Disable buttons
-                    approveButton.prop('disabled', true); // Disable "Approve" button
-                    approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
+                    rejectButton.prop('disabled', true); // Disable "Reject" button
+                    rejectButton.closest('tr').find('.approve-button').prop('disabled', true); // Disable "Approve" button
 
-                    // Handle approval logic here
+                    // Handle rejection logic here
 
                     // Display success message
-                    approveButton.closest('tr').find('td:nth-child(7)').html('<span class="text-success">Approved</span>');
+                    rejectButton.closest('tr').find('td:nth-child(7)').html('<span class="text-danger">Rejected</span>');
 
                     // Display date/time
                     var dateTime = new Date().toLocaleString();
-                    approveButton.closest('tr').find('td:nth-child(8)').text(dateTime);
+                    rejectButton.closest('tr').find('td:nth-child(8)').text(dateTime);
 
                     // Create a finalized button
                     var finalizedButton = $('<button class="finalized-button btn btn-secondary">Finalized</button>');
                     finalizedButton.prop('disabled', true); // Disable "Finalized" button
 
                     // Set the width of the finalized button to match the combined width of approve and reject buttons
-                    finalizedButton.width(approveButton.outerWidth() + approveButton.closest('tr').find('.reject-button').outerWidth());
+                    finalizedButton.width(rejectButton.outerWidth() + rejectButton.closest('tr').find('.approve-button').outerWidth());
 
                     // Replace the approve and reject buttons with the finalized button
-                    approveButton.closest('tr').find('td:nth-child(6)').html(finalizedButton);
+                    rejectButton.closest('tr').find('td:nth-child(6)').html(finalizedButton);
+
+                    // Disable buttons
+                    approveButton.prop('disabled', true); // Disable "Approve" button
+                    approveButton.closest('tr').find('.reject-button').prop('disabled', true); // Disable "Reject" button
 
                     // Close the confirmation modal
                     $('#confirmationModal').modal('hide');
