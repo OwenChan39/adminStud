@@ -26,7 +26,6 @@
 
     <style>
         .main-banner {
-            background-image: url("{{ url_for('static', filename='assets/images/background.jpg') }}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -80,7 +79,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="adminLanding.html" class="logo">
+                        <a href="/adminLanding" class="logo">
                             <h4>SEO Dream <img src="{{ url_for('static', filename='assets/images/logo-icon.png') }}"
                                     alt=""></h4>
                         </a>
@@ -94,7 +93,7 @@
                             <li class="scroll-to-section"><a href="#portfolio">Portfolio</a></li>
                             <li class="scroll-to-section"><a href="#contact">Contact Us</a></li>
                             <li class="scroll-to-section">
-                                <div class="main-blue-button"><a href="#contact">Get Your Quote</a></div>
+                                <div class="main-blue-button"><a href="/adminProfile">Profile</a></div>
                             </li>
                         </ul>
                         <a class='menu-trigger'>
@@ -167,7 +166,9 @@
                                                 <button class="approve-button btn btn-success" data-toggle="modal"
                                                     data-target="#confirmationModal" data-action="approve"
                                                     data-company-name="{{ company[0] }}">Approve</button>
-                                                <button class="reject-button btn btn-danger">Reject</button>
+                                                <button class="reject-button btn btn-danger" data-toggle="modal"
+                                                data-target="#confirmationModal" data-action="reject"
+                                                data-company-name="{{ company[0] }}">Reject</button>
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -302,13 +303,6 @@
     <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
     <script>
         $(document).ready(function () {
-            // // Initialize the Bootstrap tab plugin
-            // $('#companyListTabs a').click(function (e) {
-            //     e.preventDefault();
-            //     $(this).tab('show');
-            // });
-
-            // Example of programmatically switching to the 'Approved Companies' tab
             // $('#companyListTabs a[href="#approvedCompanies"]').tab('show');
             $('#approvedCompaniesTab').on('click', function (e) {
                 e.preventDefault(); // Prevent the default behavior of the link
@@ -346,26 +340,29 @@
                 $('#newApplications').addClass('show active');
             });
 
-            $('.approve-button').on('click', function () {
+            $('.approve-button .reject-button').on('click', function () {
                 // Set the confirmation message
-                var confirmationMessage = "Are you sure you want to approve this company?";
+                var action = $(this).data('action');
+                if (action == 'approve') {
+                    var confirmationMessage = "Are you sure you want to approve this company?";
+                } else {
+                    var confirmationMessage = "Are you sure you want to reject this company?";
+                }
+
                 $('#confirmationMessage').text(confirmationMessage);
 
                 // Show the confirmation modal
                 $('#confirmationModal').modal('show');
 
-                // Change the modal header color to red
-                $('#confirmationModal .modal-header').css('background-color', '#10a13e');
-                $('#confirmationModal .modal-header').css('color', '#fff');
+                // // Change the modal header color to red
+                // $('#confirmationModal .modal-header').css('background-color', '#10a13e');
+                // $('#confirmationModal .modal-header').css('color', '#fff');
 
-                // Change the modal header color to red
-                $('#confirmationModal #confirmAction').css('background-color', '#10a13e');
+                // // Change the modal header color to red
+                // $('#confirmationModal #confirmAction').css('background-color', '#10a13e');
 
                 var companyName = $(this).data('company-name');
                 var action = $(this).data('action');
-
-                console.log("Company Name:", companyName);
-                console.log("Action:", action);
 
                 // Store a reference to the clicked "Approve" button
                 var approveButton = $(this);
