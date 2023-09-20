@@ -775,11 +775,15 @@ def admin_delete_company(company_name):
 def update_company_status():
     cursor = db_conn.cursor()
     # Get the company ID from the submitted form
-    company_name = str(request.form.get('comp_name'))
+    company_name = str(request.form.get('company_name'))
+    action = str(request.form.get('action'))
 
-    cursor.execute("UPDATE Company SET Status = 'Approved' WHERE Comp_name = %s", (company_name,))
+    if action == 'approve':
+        cursor.execute("UPDATE Company SET Status = 'Approved' WHERE Comp_name = %s", (company_name,))
+    elif action == 'reject':
+        cursor.execute("UPDATE Company SET Status = 'Rejected' WHERE Comp_name = %s", (company_name,))
+    
     db_conn.commit()
-
     cursor.close()
     return redirect(url_for("company_database"))
 
