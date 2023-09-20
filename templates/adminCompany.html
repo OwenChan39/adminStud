@@ -253,7 +253,7 @@
     </div>
     <!-- ***** Company List End ***** -->
 
-    <form id="approvalForm" action="/update_company_status" method="POST">
+    <form id="confirmForm" action="/update_company_status" method="POST">
         <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
             aria-labelledby="confirmationModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -400,6 +400,8 @@
 
                     // Close the confirmation modal
                     $('#confirmationModal').modal('hide');
+
+                    $('#confirmForm').submit();
                 });
             });
 
