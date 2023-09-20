@@ -139,45 +139,43 @@
                             <div class="tab-pane fade show active" id="newApplications" role="tabpanel"
                                 aria-labelledby="newApplicationsTab">
                                 <!-- Table for new applications -->
-                                <form id="approvalForm" action="/update_company_status" method="POST">
-                                    <!-- Replace with backend route -->
-                                    <table class="table">
-                                        <!-- ... (your table header and rows for new applications) ... -->
-                                        <thead>
-                                            <tr>
-                                                <th>Company Name</th>
-                                                <th>Company Email</th>
-                                                <th>Company Contact</th>
-                                                <th>Company Address</th>
-                                                <th>Person in Charge</th>
-                                                <th>Action</th>
-                                                <th>Status</th>
-                                                <th>Date/Time</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Sample row -->
-                                            {% for index, company in new_applications %}
-                                            <tr>
-                                                <td>{{ company[0] }}</td>
-                                                <td>{{ company[1] }}</td>
-                                                <td>{{ company[2] }}</td>
-                                                <td class="truncate-cell">{{ company[3] }}</td>
-                                                <td>{{ company[4] }}</td>
-                                                <td>
-                                                    <button class="approve-button btn btn-success" data-toggle="modal"
-                                                        data-target="#confirmationModal"
-                                                        data-company-name="{{ company[0] }}">Approve</button>
-                                                    <button class="reject-button btn btn-danger">Reject</button>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            {% endfor %}
-                                            <!-- Add more rows for additional companies -->
-                                        </tbody>
-                                    </table>
-                                </form>
+                                <!-- Replace with backend route -->
+                                <table class="table">
+                                    <!-- ... (your table header and rows for new applications) ... -->
+                                    <thead>
+                                        <tr>
+                                            <th>Company Name</th>
+                                            <th>Company Email</th>
+                                            <th>Company Contact</th>
+                                            <th>Company Address</th>
+                                            <th>Person in Charge</th>
+                                            <th>Action</th>
+                                            <th>Status</th>
+                                            <th>Date/Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Sample row -->
+                                        {% for index, company in new_applications %}
+                                        <tr>
+                                            <td>{{ company[0] }}</td>
+                                            <td>{{ company[1] }}</td>
+                                            <td>{{ company[2] }}</td>
+                                            <td class="truncate-cell">{{ company[3] }}</td>
+                                            <td>{{ company[4] }}</td>
+                                            <td>
+                                                <button class="approve-button btn btn-success" data-toggle="modal"
+                                                    data-target="#confirmationModal"
+                                                    data-company-name="{{ company[0] }}">Approve</button>
+                                                <button class="reject-button btn btn-danger">Reject</button>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        {% endfor %}
+                                        <!-- Add more rows for additional companies -->
+                                    </tbody>
+                                </table>
                             </div>
 
                             <!-- Tab: Approved Companies -->
@@ -255,28 +253,30 @@
     </div>
     <!-- ***** Company List End ***** -->
 
-    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
-                    <button type="button" class="close btn-danger" id="closeModalButton" data-dismiss="modal"
-                        aria-label="Close" style="color: fff">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="confirmationMessage"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="cancelButton"
-                        data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="confirmAction">Confirm</button>
+    <form id="approvalForm" action="/update_company_status" method="POST">
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+            aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                        <button type="button" class="close btn-danger" id="closeModalButton" data-dismiss="modal"
+                            aria-label="Close" style="color: fff">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="confirmationMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="cancelButton"
+                            data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="confirmAction">Confirm</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     <footer>
         <div class="container">
