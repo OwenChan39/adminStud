@@ -165,7 +165,7 @@
                                             <td>{{ company[4] }}</td>
                                             <td>
                                                 <button class="approve-button btn btn-success" data-toggle="modal"
-                                                    data-target="#confirmationModal"
+                                                    data-target="#confirmationModal" data-action="approve"
                                                     data-company-name="{{ company[0] }}">Approve</button>
                                                 <button class="reject-button btn btn-danger">Reject</button>
                                             </td>
@@ -269,6 +269,8 @@
                         <p id="confirmationMessage"></p>
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" name="company_name" id="company_name" value="">
+                        <input type="hidden" name="action" id="action" value="">
                         <button type="button" class="btn btn-secondary" id="cancelButton"
                             data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary" id="confirmAction">Confirm</button>
@@ -360,9 +362,11 @@
                 $('#confirmationModal #confirmAction').css('background-color', '#10a13e');
 
                 var companyName = $(this).data('company-name');
+                var action = $(this).data('action');
 
-                // Store the company ID in a hidden input field within the form
-                $('#approvalForm input[name="comp_name"]').val(companyName);
+                // Store the company name and action in hidden input fields within the form
+                $('#company_name').val(companyName);
+                $('#action').val(action);
 
                 // Store a reference to the clicked "Approve" button
                 var approveButton = $(this);
@@ -393,8 +397,6 @@
 
                     // Close the confirmation modal
                     $('#confirmationModal').modal('hide');
-
-                    $('#approvalForm').submit();
                 });
             });
 
