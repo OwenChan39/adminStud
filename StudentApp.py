@@ -725,7 +725,7 @@ def company_database():
 
     # Retrieve data for new applications
     cursor.execute(
-        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Pending'"
+        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Pending' ORDER BY Comp_name DESC"
     )
     new_applications = cursor.fetchall()
     num_of_new = len(new_applications)
@@ -733,7 +733,7 @@ def company_database():
 
     # Retrieve data for approved companies
     cursor.execute(
-        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Approved'"
+        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Approved' ORDER BY Comp_name DESC"
     )
     approved_companies = cursor.fetchall()
     num_of_approved = len(approved_companies)
@@ -741,7 +741,7 @@ def company_database():
 
     # Retrieve data for rejected companies
     cursor.execute(
-        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Rejected'"
+        "SELECT Comp_name, EmailAddress, Contact_number, Comp_address, Person_in_charge, Status FROM Company WHERE Status = 'Rejected' ORDER BY Comp_name DESC"
     )
     rejected_companies = cursor.fetchall()
     num_of_rejected = len(rejected_companies)
